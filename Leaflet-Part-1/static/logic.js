@@ -1,50 +1,38 @@
-//1. Specify the dataset we want to work with and store it in a variable called queryURL
-// URL obtained from the Feeds on the right side of the USGS GeoJSON website in the next line
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
+// Specify the dataset we want to work with and store it in a variable called queryURL
 
-const queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+let queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
-//2. Perform a GET request to the query URL passing a variable function to display the map
+// Perform a GET request to the query URL passing a variable function to display the map
 d3.json(queryURL).then(function(data) {
+   // Once we get a response, send the data.features object to the createFeatures function
     createFeatures(data.features);
 });
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//3. Create the createFeatures() function used in #2 with the information from the URL that we want.
-
 function createFeatures(earthquakeData) {
 
-    // Create a function to apply to each feature, layer 
+  // Define a function that we want to run once for each feature in the features array.
+  // Give each feature a popup that describes the place and time of the earthquake
     function onEachFeature(feature, layer) {
         layer.bindPopup(`<h3>${feature.properties.place}</h3><hr>
     }
 
+    // Create a GeoJSON layer that contains the features array on the earthquakeData object.
+    // Run the onEachFeature function once for each piece of data in the array
     let earthquakes = L.geoJson(earthquakeData, {
         onEachFeature: onEachFeature,
-        pointToLayer: magCircles
-    }); // End of onEachFeature() function
+     });
 
-    // Pass the above information to our createMap() method (We will create this function below)
+    // // Send our earthquakes layer to the createMap function
     createMap(earthquakes);
-
 }  // End of createFeatures() function
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// 4. Function to create your map passing the tileLayers, baseMaps, overlayMaps, control and legend
 
 function createMap(earthquakes) {
 
-    //////////////////////////////////////////////////////////////////////////////////////
-    //// 4.1 Ccreate a tileLayer adding a control to choose between maps, selecting //////
-    //////////////////////     the earthquakes on and off.     ///////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////
+  // Create the base layers
 
-    // Store the tileLayer with openstreetmap to the street variable
     let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
 
-    // Store the tileLayer with opentopomap to the topo variable
     let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
     });
@@ -55,7 +43,7 @@ function createMap(earthquakes) {
         "Topography View": topo
     };
 
-    // Create overlay object
+    // Create an overlay object to hold our overlay
     let overlayMaps = {
         Earthquakes: earthquakes
     };
