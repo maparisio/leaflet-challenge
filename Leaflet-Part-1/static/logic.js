@@ -14,9 +14,7 @@ d3.json(queryURL).then(function(data) {
 
 function createFeatures(earthquakeData) {
 
-    // Create a function to apply to each feature, layer // Used place, time, mag(magnitude), and depth, being index 2
-    // I am adding the type and number of tsunamis as extra information in the coordinates key-values for the
-    // bindPopup() method. The &nbsp creates a space between the HTML code for better readability of displayed bindPopup
+    // Create a function to apply to each feature, layer 
     function onEachFeature(feature, layer) {
         layer.bindPopup(`<h3>${feature.properties.place}</h3><hr>
     }
