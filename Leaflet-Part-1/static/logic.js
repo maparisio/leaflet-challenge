@@ -19,11 +19,6 @@ function createFeatures(earthquakeData) {
     // bindPopup() method. The &nbsp creates a space between the HTML code for better readability of displayed bindPopup
     function onEachFeature(feature, layer) {
         layer.bindPopup(`<h3>${feature.properties.place}</h3><hr>
-        <p>${new Date(feature.properties.time)}</p><hr>
-        <p>Magnitude: ${feature.properties.mag} &nbsp &nbsp &nbsp | &nbsp &nbsp;
-        Depth: ${feature.geometry.coordinates[2]}</p><hr><p>
-        Type: ${feature.properties.type} &nbsp | &nbsp &nbsp
-        Number of Tsunamis: ${feature.properties.tsunami}</p>`);
     }
 
     let earthquakes = L.geoJson(earthquakeData, {
