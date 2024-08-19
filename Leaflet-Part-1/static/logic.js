@@ -1,32 +1,18 @@
 // Store our API endpoint as queryUrl.
 let queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
-<<<<<<< HEAD
 // Perform a GET request to the query URL.
 d3.json(queryUrl).then(function (data) {
   // Once we get a response, send the data.features object to the createFeatures function.
   createFeatures(data.features);
-=======
-// Perform a GET request to the query URL passing a variable function to display the map
-d3.json(queryUrl).then(function(data) {
-   // Once we get a response, send the data.features object to the createFeatures function
-    createFeatures(data.features);
->>>>>>> 587a592de7fc32f0c98042d3ef4a134bc3a549cb
 });
 
 function createFeatures(earthquakeData) {
   // Define a function that we want to run once for each feature in the features array.
-<<<<<<< HEAD
   // Give each feature a popup that describes the place and time of the earthquake.
   function onEachFeature(feature, layer) {
     layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
   }
-=======
-  // Give each feature a popup that describes the place and time of the earthquake
-    function onEachFeature(feature, layer) {
-        layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
-    }
->>>>>>> 587a592de7fc32f0c98042d3ef4a134bc3a549cb
 
   // Create a GeoJSON layer that contains the features array on the earthquakeData object.
   // Run the onEachFeature function once for each piece of data in the array.
@@ -104,7 +90,7 @@ function createMap(earthquakes) {
   }).addTo(myMap);
 
   // Create a legend to display information about our map.
-  let legend = L.control({ position: "bottomright" });
+  let legend = L.control({ position: 'bottomright' });
 
   legend.onAdd = function (myMap) {
     let div = L.DomUtil.create('div', 'info legend'),
@@ -117,7 +103,6 @@ function createMap(earthquakes) {
           '<i style="background:' + markerColor(grades[i] + 1) + '"></i> ' +
           grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
     }
-<<<<<<< HEAD
 
     return div;
   };
@@ -125,5 +110,3 @@ function createMap(earthquakes) {
   // Add legend to map
   legend.addTo(myMap);
 }
-=======
->>>>>>> 587a592de7fc32f0c98042d3ef4a134bc3a549cb
